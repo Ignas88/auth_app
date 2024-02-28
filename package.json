@@ -14,7 +14,17 @@
   "dependencies": {
     "-": "^0.0.1",
     "save-dev": "^0.0.1-security",
-    "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4"
+  },
+  "devDependencies": {
+    "css-loader": "^6.10.0",
+    "css-minimizer-webpack-plugin": "^6.0.0",
+    "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.8.1",
+    "node-sass": "^9.0.0",
+    "sass": "^1.71.1",
+    "sass-loader": "^14.1.1",
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.90.3"
   }
 }
