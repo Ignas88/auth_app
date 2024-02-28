@@ -1,0 +1,20 @@
+{
+  "name": "auth_app",
+  "version": "1.0.0",
+  "description": "webpack, react, react-router",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "-": "^0.0.1",
+    "save-dev": "^0.0.1-security",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  }
+}
