@@ -1,7 +1,6 @@
 const path = require('path');
 const ROOT_PATH = path.resolve()
 const NODE_MODULES_PATH = path.join(ROOT_PATH, 'node_modules')
-const AssetsPlugin = require('assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -22,7 +21,6 @@ module.exports = (env) => {
             clean: true,
         },
         plugins: [
-            new AssetsPlugin(),
             new HtmlWebpackPlugin({
                 template: './src/index.html',
             }),
@@ -52,20 +50,13 @@ module.exports = (env) => {
                     type: 'asset/resource',
                 },
                 {
-                    test: /\.(?:js|mjs|cjs)$/,
+                    test: /\.(js|mjs|jsx|ts|tsx)$/,
                     use: {
-                        loader: 'babel-loader',
+                        loader: 'swc-loader',
                         options: {
-                            presets: [
-                                ['@babel/preset-env', { targets: "defaults" }]
-                            ]
+                            cacheDirectory: true,
                         }
                     },
-                    exclude: path.resolve(NODE_MODULES_PATH),
-                },
-                {
-                    test: /\.tsx?$/,
-                    use: 'ts-loader',
                     exclude: path.resolve(NODE_MODULES_PATH),
                 },
             ],
@@ -73,7 +64,7 @@ module.exports = (env) => {
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.jsx', '.scss', '.scg'],
             alias: {
-                '@app': path.join(ROOT_PATH + 'src/scripts/react-app')
+                '@app': path.resolve('./src/scripts/react-app')
             },
             fallback: {
                 'react/jsx-runtime': 'react/jsx-runtime.js',

@@ -3,12 +3,19 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "lib": ["dom", "es2017"],
-    "noImplicitAny": true,
     "module": "esnext",
     "target": "es2015",
     "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+
     "allowJs": true,
-    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
     "strict": true
   }
 }

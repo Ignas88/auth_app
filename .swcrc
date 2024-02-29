@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "env": {
+    "loose": true,
+    "targets": "> 0.5%, not op_mini all, Chrome >80, Firefox >90, Safari >13"
+  },
+  "module": {
+      "type": "es6",
+  },
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true,
+      "dynamicImport": true,
+    },
+    "externalHelpers": true,
+    "transform": {
+      "react": {
+        "runtime": "automatic",
+        "useBuiltins": true
+      }
+    }
+  },
+}
