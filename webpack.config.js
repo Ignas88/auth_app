@@ -1,49 +1,88 @@
-const path = require("path");
+const path = require('path');
+const ROOT_PATH = path.resolve()
+const NODE_MODULES_PATH = path.join(ROOT_PATH, 'node_modules')
+const AssetsPlugin = require('assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
 
-module.exports = {
-    entry: "./src/index.js",
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: "./src/index.html",
-        }),
-        new MiniCssExtractPlugin({
-            filename: "[name].css"
-        }),
-    ],
-    output: {
-        filename: '[name].bundle.js',
-        path: path.resolve(__dirname, "dist"),
-        publicPath: "./",
-        assetModuleFilename: "images/[name][ext][query]"
-    },
-    module: {
-        rules: [
-            {
-                test: /\.s[ac]ss$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    // Translates CSS into CommonJS
-                    "css-loader",
-                    // Compiles Sass to CSS
-                    "sass-loader",
-                ],
-            },
-            {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                type: 'asset/resource',
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/i,
-                type: 'asset/resource',
-            },
+module.exports = (env) => {
+    const isProd = !!env.prod;
+    return {
+        mode: isProd ? 'production' : 'development',
+        entry: './src/scripts',
+        output: {
+            hashDigestLength: 8,
+            path: path.resolve(__dirname, 'dist'),
+            filename: isProd ? '[name].[contenthash].js' : '[name].js',
+            chunkFilename: isProd ? '[name].[contenthash].js' : '[name].js',
+            assetModuleFilename: 'images/[name].[contenthash].[ext][query]',
+            publicPath: './',
+            clean: true,
+        },
+        plugins: [
+            new AssetsPlugin(),
+            new HtmlWebpackPlugin({
+                template: './src/index.html',
+            }),
+            new MiniCssExtractPlugin({
+                filename: isProd ? '[name].[contenthash].css' : '[name].css',
+                chunkFilename: isProd ? '[name].[contenthash].css' : '[name].css',
+            }),
         ],
-    },
-    optimization: {
-        minimize: true,
-        minimizer: [new TerserPlugin(), new CssMinimizerPlugin(),],
-    },
+        module: {
+            rules: [
+                {
+                    test: /\.s[ac]ss$/i,
+                    use: [
+                        MiniCssExtractPlugin.loader,
+                        // Translates CSS into CommonJS
+                        "css-loader",
+                        // Compiles Sass to CSS
+                        "sass-loader",
+                    ],
+                },
+                {
+                    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                    type: 'asset/resource',
+                },
+                {
+                    test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                    type: 'asset/resource',
+                },
+                {
+                    test: /\.(?:js|mjs|cjs)$/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [
+                                ['@babel/preset-env', { targets: "defaults" }]
+                            ]
+                        }
+                    },
+                    exclude: path.resolve(NODE_MODULES_PATH),
+                },
+                {
+                    test: /\.tsx?$/,
+                    use: 'ts-loader',
+                    exclude: path.resolve(NODE_MODULES_PATH),
+                },
+            ],
+        },
+        resolve: {
+            extensions: ['.tsx', '.ts', '.js', '.jsx', '.scss', '.scg'],
+            alias: {
+                '@app': path.join(ROOT_PATH + 'src/scripts/react-app')
+            },
+            fallback: {
+                'react/jsx-runtime': 'react/jsx-runtime.js',
+                'react/jsx-dev-runtime': 'react/jsx-dev-runtime.js',
+            }
+        },
+        optimization: {
+            minimize: isProd,
+            minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+        },
+    }
 }
