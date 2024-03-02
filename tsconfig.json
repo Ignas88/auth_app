@@ -16,6 +16,11 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@app/*": ["src/scripts/react-app/*"],
+    },
+    "files": ["globals.d.ts"]
   }
 }

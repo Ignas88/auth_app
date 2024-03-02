@@ -44,12 +44,17 @@ module.exports = (env) => {
                     ],
                 },
                 {
-                    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                    test: /\.(png|jpg|jpeg|gif)$/i,
                     type: 'asset/resource',
                 },
                 {
                     test: /\.(woff|woff2|eot|ttf|otf)$/i,
                     type: 'asset/resource',
+                },
+                {
+                    test: /\.svg$/i,
+                    issuer: /\.[jt]sx?$/,
+                    use: ['@svgr/webpack'],
                 },
                 {
                     test: /\.(js|mjs|jsx|ts|tsx)$/,
@@ -66,8 +71,9 @@ module.exports = (env) => {
         resolve: {
             extensions: ['.tsx', '.ts', '.js', '.jsx', '.scss', '.scg'],
             alias: {
-                '@app': path.join(__dirname, '/src/scripts/react-app'),
-                '@styles': path.join(__dirname, '/src/scss'),
+                '@app': path.resolve(__dirname, './src/scripts/react-app'),
+                '@styles': path.resolve(__dirname, './src/scss'),
+                '@images': path.resolve(__dirname, './src/images'),
             },
         },
         optimization: {

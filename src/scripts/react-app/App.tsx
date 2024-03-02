@@ -1,23 +1,27 @@
-import type { FC } from 'react';
 import {
-    createBrowserRouter,
-    RouterProvider,
+    BrowserRouter,
+    Routes,
+    Route,
 } from 'react-router-dom';
-import '@styles';
+import { Navbar } from '@app/components/Navbar';
 
 
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <h1>Hello, TypeScript React!aaa</h1>,
-    },
-    {
-        path: 'login',
-        element: <div>login</div>,
-    },
-    {
-        path: 'servers',
-        element: <div>servers</div>,
-    },
-]);
-export const App: FC = () => <RouterProvider router={router} />
+function App() {
+    return (
+        <BrowserRouter>
+            <div>
+                <Navbar />
+                <Routes>
+                    <Route path='/' element={<div>hello</div>}/>
+                    <Route path='/login' element={<div>login</div>}/>
+                    <Route
+                        path='/servers'
+                        element={<div>servers</div>}
+                    />
+                </Routes>
+            </div>
+        </BrowserRouter>
+    );
+}
+
+export default App;

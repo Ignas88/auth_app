@@ -16,9 +16,11 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.2",
     "save-dev": "^0.0.1-security",
+    "styled-components": "^6.1.8",
     "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@swc/core": "^1.4.2",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",

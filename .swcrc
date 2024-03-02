@@ -12,6 +12,10 @@
       "syntax": "typescript",
       "tsx": true,
       "dynamicImport": true,
+      "baseUrl": "./",
+      "paths": {
+            "@app/*": ["src/scripts/react-app/*"],
+      },
     },
     "externalHelpers": true,
     "transform": {
