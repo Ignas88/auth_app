@@ -20,6 +20,7 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/scripts/react-app/*"],
+      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"],
     },
     "files": ["globals.d.ts"]
   }

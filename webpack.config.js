@@ -74,6 +74,7 @@ module.exports = (env) => {
                 '@app': path.resolve(__dirname, './src/scripts/react-app'),
                 '@styles': path.resolve(__dirname, './src/scss'),
                 '@images': path.resolve(__dirname, './src/images'),
+                '@mui/styled-engine': '@mui/styled-engine-sc',
             },
         },
         optimization: {
