@@ -1,21 +1,22 @@
 import {type FC, type FormEvent, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import { Form, ButtonRounded, ButtonContainer } from './withStyles';
+import { useLoginMutation } from '@app/services/authApi';
 
 
 export const LoginForm: FC = () => {
-  const [userName, setUserName] = useState('');
+  const [ login, {data, isSuccess, isLoading} ] = useLoginMutation();
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleDemoClick = () => {
-    setUserName('tesonet')
+    setUsername('tesonet')
     setPassword('partyanimal')
-    console.log('demo')
   }
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    console.log(userName, password)
+    const returned = await login({username, password}).unwrap();
   }
 
   return (
@@ -28,8 +29,8 @@ export const LoginForm: FC = () => {
           label="User name"
           color="secondary"
           fullWidth
-          value={userName}
-          onChange={(e) => setUserName(e.target.value || '')}
+          value={username}
+          onChange={(e) => setUsername(e.target.value || '')}
         />
         <TextField
           required
@@ -47,7 +48,7 @@ export const LoginForm: FC = () => {
             type="submit"
             size="large"
             variant="contained"
-            disabled={!userName || !password}
+            disabled={!username || !password}
           >
             Login
           </ButtonRounded>

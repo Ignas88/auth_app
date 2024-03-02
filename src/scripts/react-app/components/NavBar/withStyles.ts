@@ -9,7 +9,6 @@ export const Nav = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: var(--color-white);
 `;
 export const Right = styled.div`
     @media (max-width: 575px) {

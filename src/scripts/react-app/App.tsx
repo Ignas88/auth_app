@@ -6,6 +6,7 @@ import {
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import {Login} from '@app/views/Login';
 import {Navbar} from '@app/components/NavBar';
+import {Container} from '@app/components/ViewContainer';
 import styled from 'styled-components';
 
 const theme = createTheme({
@@ -19,7 +20,7 @@ const theme = createTheme({
       light: '#d5cfff',
       main: '#6E29F5',
       dark: '#392bab',
-      contrastText: '#fff',
+      contrastText: '#ffffff',
     },
   },
 });
@@ -37,7 +38,7 @@ function App() {
         <Main>
           <Navbar/>
           <Routes>
-            <Route path='/'/>
+            <Route path='/' element={<Container />} />
             <Route path='/login' element={<Login/>}/>
             <Route
               path='/servers'

@@ -1,9 +1,11 @@
-import {type FC, useState} from 'react';
+import {type FC, useState, useMemo} from 'react';
+import {useAppSelector, useAppDispatch} from '@app/store/hooks';
 import {useNavigate} from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import Dialog from '@mui/material/Dialog';
 import Logo from '@app/icons/Logo.svg';
 import MenuIcon from '@app/icons/ico.svg';
+import { logOut } from '@app/store/slices/auth';
 import {
   Nav,
   ButtonWhite,
@@ -17,13 +19,14 @@ import {
 
 export const Navbar: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isAuth = false;
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+  console.log(isLoggedIn)
   return (
     <>
       <Nav>
         <Logo/>
         <Right>
-          <NavButtons isAuth={isAuth}/>
+          <NavButtons isAuth={isLoggedIn}/>
         </Right>
         <RightMobile>
           <IconButton onClick={() => setIsMenuOpen(true)}>
@@ -40,7 +43,7 @@ export const Navbar: FC = () => {
         </DialogTitleFlex>
         <DialogContentFlex>
           <NavButtons
-            isAuth={isAuth}
+            isAuth={isLoggedIn}
             isLarge={true}
             onClick={() => setIsMenuOpen(false)}
           />
@@ -55,10 +58,15 @@ const NavButtons: FC<{ isAuth: boolean; isLarge?: boolean; onClick?: () => void;
     isLarge = false,
     onClick
 }) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const buttonSize = isLarge ? 'large' : 'medium';
   const handleClick = (navigateTo: string) => {
     navigate(navigateTo);
+    onClick?.();
+  }
+  const handleLogOut = () => {
+    dispatch(logOut());
     onClick?.();
   }
 
@@ -78,7 +86,7 @@ const NavButtons: FC<{ isAuth: boolean; isLarge?: boolean; onClick?: () => void;
         </ButtonWhite>
       )}
       {isAuth && (
-        <ButtonWhite size={buttonSize} variant="text">
+        <ButtonWhite size={buttonSize} variant="text" onClick={handleLogOut}>
           Logout
         </ButtonWhite>
       )}
