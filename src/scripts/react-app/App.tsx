@@ -5,7 +5,9 @@ import {
 } from 'react-router-dom';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import {Login} from '@app/views/Login';
+import {Servers} from '@app/views/Servers';
 import {Navbar} from '@app/components/NavBar';
+import {RequireAuth} from '@app/components/RequireAuth';
 import {Container} from '@app/components/ViewContainer';
 import styled from 'styled-components';
 
@@ -39,11 +41,8 @@ function App() {
           <Navbar/>
           <Routes>
             <Route path='/' element={<Container />} />
-            <Route path='/login' element={<Login/>}/>
-            <Route
-              path='/servers'
-              element={<div>servers</div>}
-            />
+            <Route path='/login' element={<Login/>} />
+            <Route path='/servers' element={<RequireAuth><Servers/></RequireAuth>} />
           </Routes>
         </Main>
       </ThemeProvider>

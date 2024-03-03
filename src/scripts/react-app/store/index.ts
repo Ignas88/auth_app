@@ -1,30 +1,33 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
-import storageSession from 'redux-persist/lib/storage/session'
-import { setupListeners } from '@reduxjs/toolkit/query'
-import { authApi } from '@app/services/authApi'
-import authSlice from './slices/auth'
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import {persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, persistStore} from 'redux-persist';
+import storageSession from 'redux-persist/lib/storage/session';
+import { authApi } from '@app/services/authApi';
+import { serversApi } from '@app/services/serversApi';
+import authSlice from '@app/reduxSlices/auth';
 
 
 const persistConfig = {
-  key: 'root',
+  key: 'auth',
   storage: storageSession,
-  whitelist: ['auth']
-}
-const rootReducer = combineReducers({ // added combineReducer since we have now two reducer
-  auth: authSlice,
+};
+const rootReducer = combineReducers({
+  auth: persistReducer(persistConfig, authSlice),
   [authApi.reducerPath]: authApi.reducer,
-})
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+  [serversApi.reducerPath]: serversApi.reducer,
+});
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware),
-})
-setupListeners(store.dispatch)
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+    }).concat(authApi.middleware, serversApi.middleware),
+});
+export const persistor = persistStore(store);
+export const persistStorePurge = () => {
+  persistor.pause();
+  persistor.flush().then(() => persistor.purge());
+}
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

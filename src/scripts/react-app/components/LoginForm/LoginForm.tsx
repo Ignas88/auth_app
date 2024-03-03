@@ -1,27 +1,55 @@
-import {type FC, type FormEvent, useState} from 'react';
+import {type FC, type FormEvent, type MouseEvent, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
 import { Form, ButtonRounded, ButtonContainer } from './withStyles';
 import { useLoginMutation } from '@app/services/authApi';
+import { isFetchBaseQueryError, isErrorWithMessage } from '@app/services/helpers'
 
 
 export const LoginForm: FC = () => {
-  const [ login, {data, isSuccess, isLoading} ] = useLoginMutation();
+  const navigate = useNavigate();
+  const [ login, { error } ] = useLoginMutation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleDemoClick = () => {
-    setUsername('tesonet')
-    setPassword('partyanimal')
+  const [message, setMessage] = useState('');
+  const handleDemoClick = (e: MouseEvent) => {
+    e.preventDefault();
+    setUsername('tesonet');
+    setPassword('partyanimal');
+  }
+  const handleClearCredentials = () => {
+    setUsername('');
+    setPassword('');
   }
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    const returned = await login({username, password}).unwrap();
+    e.preventDefault();
+    try {
+      const res = await login({username, password}).unwrap()
+      if (res.token) {
+        navigate('/servers');
+        handleClearCredentials();
+      }
+    } catch (err) {
+      if (isFetchBaseQueryError(err)) {
+        const errMsg = 'error' in err ? err.error : err.data;
+        if (isErrorWithMessage(errMsg)) {
+          setMessage(errMsg.message);
+        } else {
+          setMessage(JSON.stringify(errMsg));
+        }
+      } else if (isErrorWithMessage(err)) {
+        setMessage(err.message);
+      }
+      handleClearCredentials();
+    }
   }
 
   return (
     <>
       <Form onSubmit={handleSubmit}>
+        {message && <Alert severity="error" onClose={() => setMessage('')}>{message}</Alert>}
         <TextField
           required
           id="username"
@@ -59,7 +87,7 @@ export const LoginForm: FC = () => {
             color="secondary"
             onClick={handleDemoClick}
           >
-            DEMO Login
+            DEMO
           </ButtonRounded>
         </ButtonContainer>
       </Form>

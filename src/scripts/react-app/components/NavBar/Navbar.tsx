@@ -1,11 +1,12 @@
-import {type FC, useState, useMemo} from 'react';
+import {type FC, useState} from 'react';
 import {useAppSelector, useAppDispatch} from '@app/store/hooks';
 import {useNavigate} from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import Dialog from '@mui/material/Dialog';
 import Logo from '@app/icons/Logo.svg';
 import MenuIcon from '@app/icons/ico.svg';
-import { logOut } from '@app/store/slices/auth';
+import { setIsLoggedOut } from '@app/reduxSlices/auth';
+import { persistStorePurge } from '@app/store';
 import {
   Nav,
   ButtonWhite,
@@ -20,7 +21,7 @@ import {
 export const Navbar: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-  console.log(isLoggedIn)
+
   return (
     <>
       <Nav>
@@ -66,7 +67,8 @@ const NavButtons: FC<{ isAuth: boolean; isLarge?: boolean; onClick?: () => void;
     onClick?.();
   }
   const handleLogOut = () => {
-    dispatch(logOut());
+    dispatch(setIsLoggedOut());
+    persistStorePurge();
     onClick?.();
   }
 
