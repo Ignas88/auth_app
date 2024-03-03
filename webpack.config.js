@@ -5,10 +5,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const ASSET_PATH = process.env.PUBLIC_PATH || '/';
 
 module.exports = (env) => {
     const isProd = !!env.prod;
-
     return {
         mode: isProd ? 'production' : 'development',
         entry: './src/scripts',
@@ -18,7 +18,7 @@ module.exports = (env) => {
             filename: isProd ? '[name].[contenthash].js' : '[name].js',
             chunkFilename: isProd ? '[name].[contenthash].js' : '[name].js',
             assetModuleFilename: 'images/[name].[contenthash].[ext][query]',
-            publicPath: '/',
+            publicPath: ASSET_PATH,
             clean: true,
         },
         devServer: {

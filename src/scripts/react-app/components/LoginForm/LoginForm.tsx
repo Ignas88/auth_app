@@ -10,7 +10,7 @@ const DEMO_USER_NAME = `${process.env.APP_DEMO_USER_NAME}`;
 const DEMO_PASSWORD = `${process.env.APP_DEMO_USER_PASS}`;
 export const LoginForm: FC = () => {
   const navigate = useNavigate();
-  const [ login, { error } ] = useLoginMutation();
+  const [ login ] = useLoginMutation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
