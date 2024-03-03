@@ -6,7 +6,6 @@ import Dialog from '@mui/material/Dialog';
 import Logo from '@app/icons/Logo.svg';
 import MenuIcon from '@app/icons/ico.svg';
 import { setIsLoggedOut } from '@app/reduxSlices/auth';
-import { persistStorePurge } from '@app/store';
 import {
   Nav,
   ButtonWhite,
@@ -68,7 +67,6 @@ const NavButtons: FC<{ isAuth: boolean; isLarge?: boolean; onClick?: () => void;
   }
   const handleLogOut = () => {
     dispatch(setIsLoggedOut());
-    persistStorePurge();
     onClick?.();
   }
 

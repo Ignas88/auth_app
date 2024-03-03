@@ -25,9 +25,5 @@ export const store = configureStore({
     }).concat(authApi.middleware, serversApi.middleware),
 });
 export const persistor = persistStore(store);
-export const persistStorePurge = () => {
-  persistor.pause();
-  persistor.flush().then(() => persistor.purge());
-}
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
