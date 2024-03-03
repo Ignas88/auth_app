@@ -1,6 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { type RootState } from '@app/store';
 
+export type ServerJSON = {
+  name: string;
+  distance: number;
+}
 export const serversApi = createApi({
   reducerPath: 'serversApi',
   baseQuery: fetchBaseQuery({
@@ -14,7 +18,7 @@ export const serversApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getServers: builder.query<any, void>({
+    getServers: builder.query<ServerJSON[], void>({
       query: () => ({
         url: '/servers',
       }),
