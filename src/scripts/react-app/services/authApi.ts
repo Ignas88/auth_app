@@ -7,7 +7,7 @@ type authResJSON = {
 }
 export const authApi = createApi({
   reducerPath: 'authAPI',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://playground.tesonet.lt/v1' }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${process.env.APP_BASE_API_PATH}` }),
   endpoints: (builder) => ({
     login: builder.mutation<authResJSON, {username: string, password: string}>({
       query: (credentials) => ({

@@ -3,7 +3,8 @@ const NODE_MODULES_PATH = path.join(__dirname, 'node_modules')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = (env) => {
     const isProd = !!env.prod;
@@ -25,6 +26,7 @@ module.exports = (env) => {
             historyApiFallback: true,
         },
         plugins: [
+            new Dotenv(),
             new HtmlWebpackPlugin({
                 template: './src/index.html',
             }),

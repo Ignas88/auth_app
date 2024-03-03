@@ -8,7 +8,7 @@ export type ServerJSON = {
 export const serversApi = createApi({
   reducerPath: 'serversApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://playground.tesonet.lt/v1',
+    baseUrl: `${process.env.APP_BASE_API_PATH}`,
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token
       if (token) {

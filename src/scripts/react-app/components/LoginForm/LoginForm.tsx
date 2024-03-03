@@ -6,17 +6,19 @@ import { Form, ButtonRounded, ButtonContainer } from './withStyles';
 import { useLoginMutation } from '@app/services/authApi';
 import { isFetchBaseQueryError, isErrorWithMessage } from '@app/services/helpers'
 
-
+const DEMO_USER_NAME = `${process.env.APP_DEMO_USER_NAME}`;
+const DEMO_PASSWORD = `${process.env.APP_DEMO_USER_PASS}`;
 export const LoginForm: FC = () => {
   const navigate = useNavigate();
   const [ login, { error } ] = useLoginMutation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+
   const handleDemoClick = (e: MouseEvent) => {
     e.preventDefault();
-    setUsername('tesonet');
-    setPassword('partyanimal');
+    setUsername(DEMO_USER_NAME);
+    setPassword(DEMO_PASSWORD);
   }
   const handleClearCredentials = () => {
     setUsername('');
@@ -80,15 +82,17 @@ export const LoginForm: FC = () => {
           >
             Login
           </ButtonRounded>
-          <ButtonRounded
-            type="submit"
-            size="large"
-            variant="contained"
-            color="secondary"
-            onClick={handleDemoClick}
-          >
-            DEMO
-          </ButtonRounded>
+          {!!DEMO_USER_NAME && DEMO_PASSWORD && (
+            <ButtonRounded
+              type="submit"
+              size="large"
+              variant="contained"
+              color="secondary"
+              onClick={handleDemoClick}
+            >
+              DEMO
+            </ButtonRounded>
+          )}
         </ButtonContainer>
       </Form>
     </>
