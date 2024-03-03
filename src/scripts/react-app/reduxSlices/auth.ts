@@ -10,7 +10,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setIsLoggedIn: (state,action) => ({isLoggedIn: true, ...action.payload}),
+    setIsLoggedIn: (_,action) => ({isLoggedIn: true, ...action.payload}),
     setIsLoggedOut: () => ({...initialState}),
   },
 });
