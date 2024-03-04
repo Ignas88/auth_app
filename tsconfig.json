@@ -7,7 +7,7 @@
     "target": "es2015",
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
-    "types": ["node", "jest"],
+    "types": ["node", "jest", "@testing-library/jest-dom"],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -20,7 +20,7 @@
     "baseUrl": "./",
     "paths": {
       "@app/*": ["src/scripts/react-app/*"],
-      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"],
-    },
+      "@mui/styled-engine": ["node_modules/@mui/styled-engine-sc"]
+    }
   }
 }

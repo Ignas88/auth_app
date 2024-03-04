@@ -76,17 +76,27 @@ const NavButtons: FC<{ isAuth: boolean; isLarge?: boolean; onClick?: () => void;
         Main
       </ButtonWhite>
       {!isAuth && (
-        <ButtonWhite onClick={() => handleClick('/login')} size={buttonSize} variant="text">
+        <ButtonWhite
+          data-testid="login-btn"
+          onClick={() => handleClick('/login')}
+          size={buttonSize}
+          variant="text"
+        >
           Login
         </ButtonWhite>
       )}
       {isAuth && (
-        <ButtonWhite onClick={() => handleClick('/servers')} size={buttonSize} variant="text">
+        <ButtonWhite
+          data-testid="servers-btn"
+          onClick={() => handleClick('/servers')}
+          size={buttonSize}
+          variant="text"
+        >
           Servers
         </ButtonWhite>
       )}
       {isAuth && (
-        <ButtonWhite size={buttonSize} variant="text" onClick={handleLogOut}>
+        <ButtonWhite data-testid="logout-btn" size={buttonSize} variant="text" onClick={handleLogOut}>
           Logout
         </ButtonWhite>
       )}
