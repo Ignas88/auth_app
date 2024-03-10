@@ -6,7 +6,7 @@ import { ServersTable } from '@app/components/ServersTable';
 import { useGetServersQuery } from '@app/services/serversApi';
 
 
-export const Servers: FC = () => {
+const Servers: FC = () => {
   const { isLoading, isSuccess } = useGetServersQuery()
   return (
     <Container>
@@ -17,3 +17,5 @@ export const Servers: FC = () => {
     </Container>
   );
 }
+
+export default Servers;

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -5,7 +6,6 @@ import {
 } from 'react-router-dom';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import {Login} from '@app/views/Login';
-import {Servers} from '@app/views/Servers';
 import {Navbar} from '@app/components/NavBar';
 import {RequireAuth} from '@app/components/RequireAuth';
 import {Container} from '@app/components/ViewContainer';
@@ -33,6 +33,7 @@ const Main = styled.div`
     flex-direction: column;
 `;
 
+const Servers = lazy(() => import('@app/views/Servers'))
 function App() {
   return (
     <BrowserRouter>
@@ -42,7 +43,16 @@ function App() {
           <Routes>
             <Route path='/' element={<Container />} />
             <Route path='/login' element={<Login/>} />
-            <Route path='/servers' element={<RequireAuth><Servers/></RequireAuth>} />
+            <Route
+              path='/servers'
+              element={
+              <RequireAuth>
+                <Suspense fallback={<Container><h2>page unavailable</h2></Container>}>
+                  <Servers/>
+                </Suspense>
+              </RequireAuth>
+              }
+            />
           </Routes>
         </Main>
       </ThemeProvider>

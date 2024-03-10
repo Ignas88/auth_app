@@ -11,14 +11,14 @@ export const Nav = styled.nav`
     justify-content: space-between;
 `;
 export const Right = styled.div`
-    @media (max-width: 575px) {
+    ${({theme}) => theme.breakpoints.down('sm')} {
         & {
             display: none;
         }
     }
 `;
 export const RightMobile = styled.div`
-    @media (min-width: 576px) {
+    ${({theme}) => theme.breakpoints.up('sm')} {
         & {
             display: none;
         }

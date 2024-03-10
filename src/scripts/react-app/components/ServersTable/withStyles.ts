@@ -6,8 +6,8 @@ export const TablePaper = styled(Paper)`
     max-height: 70%;
     width: 570px;
     border-radius: 8px;
-    
-    @media (max-width: 575px) {
+
+    ${({theme}) => theme.breakpoints.down('sm')} {
         & {
             width: 100%;
         }

@@ -34,7 +34,7 @@ body {
   background-image: url('~@images/background.png');
 }
 
-@media (min-width: 576px) {
+@media (min-width: 600px) {
   #root {
     background-image: url('~@images/background-nasa-unsplash.png')
   }

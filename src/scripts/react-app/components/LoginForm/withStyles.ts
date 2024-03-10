@@ -13,7 +13,7 @@ export const Form = styled.form`
         margin-bottom: 24px;
     }
 
-    @media (max-width: 575px) {
+    ${({theme}) => theme.breakpoints.down('sm')} {
         & {
             width: 100%;
         }
