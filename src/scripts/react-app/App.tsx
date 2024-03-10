@@ -33,7 +33,7 @@ const Main = styled.div`
     flex-direction: column;
 `;
 
-const Servers = lazy(() => import('@app/views/Servers'))
+const Servers = lazy(() => import(/* webpackChunkName: "Servers" */ '@app/views/Servers'))
 function App() {
   return (
     <BrowserRouter>

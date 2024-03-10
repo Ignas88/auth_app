@@ -82,6 +82,15 @@ module.exports = (env) => {
             minimize: isProd,
             usedExports: true,
             runtimeChunk: 'single',
+            splitChunks: {
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendors',
+                        chunks: 'all'
+                    }
+                }
+            },
             minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
         },
     }
