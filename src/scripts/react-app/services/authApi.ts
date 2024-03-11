@@ -18,7 +18,7 @@ export const authApi = createApi({
       onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
         try {
           const {data} = await queryFulfilled;
-          dispatch(setIsLoggedIn(data));
+          if (!!data.token) dispatch(setIsLoggedIn(data));
         } catch(e) {
         }
       },

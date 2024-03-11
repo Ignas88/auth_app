@@ -1,5 +1,5 @@
-import {type FC, useState, type MouseEvent, useMemo} from 'react';
-import {useGetServersQuery, type ServerJSON} from '@app/services/serversApi';
+import { type FC, useState, type MouseEvent, useMemo } from 'react';
+import { useGetServersQuery, type ServerJSON } from '@app/services/serversApi';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';

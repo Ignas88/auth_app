@@ -1,13 +1,13 @@
-import {type FC, type FormEvent, type MouseEvent, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import { type FC, type FormEvent, type MouseEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
 import { Form, ButtonRounded, ButtonContainer } from './withStyles';
 import { useLoginMutation } from '@app/services/authApi';
 import { isFetchBaseQueryError, isErrorWithMessage } from '@app/services/helpers'
 
-const DEMO_USER_NAME = `${process.env.APP_DEMO_USER_NAME}`;
-const DEMO_PASSWORD = `${process.env.APP_DEMO_USER_PASS}`;
+const DEMO_USER_NAME = process.env.APP_DEMO_USER_NAME || '';
+const DEMO_PASSWORD = process.env.APP_DEMO_USER_PASS || '';
 export const LoginForm: FC = () => {
   const navigate = useNavigate();
   const [ login ] = useLoginMutation();
@@ -60,7 +60,7 @@ export const LoginForm: FC = () => {
           color="secondary"
           fullWidth
           value={username}
-          onChange={(e) => setUsername(e.target.value || '')}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
           required
@@ -71,7 +71,7 @@ export const LoginForm: FC = () => {
           color="secondary"
           fullWidth
           value={password}
-          onChange={(e) => setPassword(e.target.value || '')}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <ButtonContainer>
           <ButtonRounded
@@ -82,7 +82,7 @@ export const LoginForm: FC = () => {
           >
             Login
           </ButtonRounded>
-          {!!DEMO_USER_NAME && DEMO_PASSWORD && (
+          {!!DEMO_USER_NAME && !!DEMO_PASSWORD && (
             <ButtonRounded
               type="submit"
               size="large"
