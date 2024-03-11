@@ -11,7 +11,7 @@ import {RequireAuth} from '@app/components/RequireAuth';
 import {Container} from '@app/components/ViewContainer';
 import styled from 'styled-components';
 
-const theme = createTheme({
+export const theme = createTheme({
   typography: {
     button: {
       textTransform: 'none',
