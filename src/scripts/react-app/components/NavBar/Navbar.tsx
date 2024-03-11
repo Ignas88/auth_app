@@ -1,6 +1,6 @@
-import {type FC, useState} from 'react';
-import {useAppSelector, useAppDispatch} from '@app/store/hooks';
-import {useNavigate} from 'react-router-dom';
+import { type FC, useState } from 'react';
+import { useAppSelector, useAppDispatch } from '@app/store/hooks';
+import { useNavigate } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import Dialog from '@mui/material/Dialog';
 import Logo from '@app/icons/Logo.svg';
@@ -75,7 +75,7 @@ const NavButtons: FC<{ isAuth: boolean; isLarge?: boolean; onClick?: () => void;
       <ButtonWhite onClick={() => handleClick('/')} size={buttonSize} variant="text">
         Main
       </ButtonWhite>
-      {!isAuth && (
+      {!isAuth ? (
         <ButtonWhite
           data-testid="login-btn"
           onClick={() => handleClick('/login')}
@@ -84,21 +84,20 @@ const NavButtons: FC<{ isAuth: boolean; isLarge?: boolean; onClick?: () => void;
         >
           Login
         </ButtonWhite>
-      )}
-      {isAuth && (
-        <ButtonWhite
-          data-testid="servers-btn"
-          onClick={() => handleClick('/servers')}
-          size={buttonSize}
-          variant="text"
-        >
-          Servers
-        </ButtonWhite>
-      )}
-      {isAuth && (
-        <ButtonWhite data-testid="logout-btn" size={buttonSize} variant="text" onClick={handleLogOut}>
-          Logout
-        </ButtonWhite>
+      ) : (
+        <>
+          <ButtonWhite
+            data-testid="servers-btn"
+            onClick={() => handleClick('/servers')}
+            size={buttonSize}
+            variant="text"
+          >
+            Servers
+          </ButtonWhite>
+          <ButtonWhite data-testid="logout-btn" size={buttonSize} variant="text" onClick={handleLogOut}>
+            Logout
+          </ButtonWhite>
+        </>
       )}
     </>
   )
